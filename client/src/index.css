@@ -1,1 +1,61 @@
 @import "tailwindcss";
+
+@utility flex-center{
+  @apply flex justify-center items-center
+}
+
+.scrollbar-hide{
+  -ms-overflow-style: none; 
+}
+.scrollbar-hide::-webkit-scrollbar {
+  height: 10px;
+  width: 100px;
+}
+.scrollbar-hide::-webkit-scrollbar-thumb {
+  background-color: #a31621;  /* your custom color */
+  border-radius: 10px;
+  border: 2px solid #f1f1f1; /* optional padding around thumb */
+}
+
+body{
+  background: #FCF7F8;
+}
+.bg-madder{
+  background-color: #A31621;
+}
+.text-madder{
+  color: #A31621;
+} 
+.bg-snow{
+  background-color: #FCF7F8;
+}
+.text-snow{
+  color: #FCF7F8;
+}
+.btn-hover:hover{
+  background-color: #A31621;
+  color: #FCF7F8;
+  transition: all 0.3s ease-in-out;
+}
+.bg-curve{
+  clip-path: polygon(0 25%, 100% 67%, 100% 100%, 0% 100%);
+
+}
+
+.favourite{
+  clip-path: polygon(70% 0%, 0 0, 0 85%);
+}
+
+@utility form-input{
+  @apply w-full py-1 ps-10 border-b-2 border-b-gray-600 focus:bg-white
+}
+.hover-btn:hover{
+  background: #d52206;
+}
+.clip-animation {
+  clip-path: circle(0% at 50% 50%);
+  transition: clip-path 0.5s ease-in-out;
+}
+.clip-animation.active {
+  clip-path: circle(100% at 50% 50%);
+}
