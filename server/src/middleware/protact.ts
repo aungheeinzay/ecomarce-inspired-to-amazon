@@ -15,8 +15,6 @@ export const protact = async(req:Request,res:Response,next:NextFunction)=>{
     let token:string | undefined
     token = req.headers.authorization?
             req.headers.authorization.split(" ")[1] : req.cookies?.token
-    console.log(token);
-    console.log("cookie test",req.cookies.token);
     
     if(!token){
      return res.status(401).json({message:"not authorized"})  

@@ -1,12 +1,21 @@
 import {Schema,model,Document, Types} from "mongoose"
 import bcrypt from "bcryptjs"
+import crypto from "crypto"
+
 export interface IUser extends Document{
     _id:Types.ObjectId
     username:string
     email:string
     password:string
-    role:"customer" | "admin"
+    role:"customer" | "admin",
+    avator?:{
+        url:string
+        alt:string
+    },
+    resetPasswordToken:string
+    tokenExpires:string
     matchPassword(enterPassword:string):Promise<boolean>
+    generateResetPasswordToken():string
 }
 
 const userSchema  = new Schema<IUser>({
@@ -28,7 +37,13 @@ const userSchema  = new Schema<IUser>({
         type:String,
         enum:["customer","admin"],
         default:"customer"
-    }
+    },
+    avator:{
+            url:{type:String},
+            alt:{type:String}
+            },
+    resetPasswordToken:String,
+    tokenExpires:String  
 },{timestamps:true})
 
 userSchema.pre("save",async function(next){
@@ -39,6 +54,13 @@ userSchema.pre("save",async function(next){
 
 userSchema.methods.matchPassword = async function(enterPassword:string) {
     return await bcrypt.compare(enterPassword,this.password)
+}
+
+userSchema.methods.generateResetPasswordToken = function():string{
+    const token = crypto.randomBytes(20).toString("hex")
+    this.resetPasswordToken = crypto.createHash('sha256').update(token).digest('hex')
+    this.tokenExpires = Date.now() +  10*60*1000;
+    return token;
 }
 
 export const User = model<IUser>("user",userSchema)

@@ -28,7 +28,7 @@ const RegisterUser = async(req:Request,res:Response)=>{
         email,
         password,
     })
-    return res.status(201).json({message:"a user created successfully",createdUser})
+    return res.status(201).json({message:"a user created successfully"})
    } catch (error) {
     console.log(error);
     return res.status(500).json({message:"server error"})
@@ -60,8 +60,6 @@ const login = async(req:Request,res:Response)=>{
         return res.status(201).json({
            message:"login success",
            id:user._id,
-           email:user.email,
-           username:user.username,
            token
         })
     }

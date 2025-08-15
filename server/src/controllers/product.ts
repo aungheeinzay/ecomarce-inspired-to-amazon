@@ -1,6 +1,6 @@
 import { Request,Response } from "express"
 import { Product } from "../models/product"
-import { User } from "../models/user"
+
 
 //@route post | api/product
 //desc create a product
@@ -20,11 +20,6 @@ try {
       name
 } = req.body
 
-if(!description || !name || !price || !instock_count || !category ||
-     !sizes || !colors || !images || is_newArrival===undefined || !rating || is_feature===undefined  ){
-    return res.status(400).json({message:"all field are required"})
-}
-
     await Product.create({
     name,description,price,instock_count,category,
     sizes,colors,images,is_newArrival,rating,is_feature,
@@ -33,7 +28,7 @@ if(!description || !name || !price || !instock_count || !category ||
 return res.status(200).json({message:`${name} is created successfully`})
 } catch (error) {
    console.log(error);
-   return res.status(500).json({message:"server error"})
+   return res.status(500).json({message:"server errors"})
 }
 }
 
