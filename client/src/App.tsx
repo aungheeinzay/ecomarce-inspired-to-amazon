@@ -9,6 +9,7 @@ import ProductDetails from './pages/ProductDetails';
 import Profile from './pages/Profile';
 import ForgetPassword from './pages/ForgetPassword';
 import ForgetPasswordEmail from './pages/ForgetPasswordEmail';
+import ProductFilter from './pages/ProductFilter';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -26,7 +27,7 @@ const router = createBrowserRouter([{
     path:"login",
     element:<Login/>
   },{
-    path:"product/:id",
+    path:"product/single/:id",
     element:<ProductDetails/>
   },{
     path:"profile",
@@ -39,6 +40,10 @@ const router = createBrowserRouter([{
   {
     path:'forgetPassword',
     element:<ForgetPasswordEmail/>
+  },
+  {
+    path:'products/filter',
+    element:<ProductFilter/>
   }
 ]
 }])

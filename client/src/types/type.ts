@@ -11,3 +11,30 @@ export interface IUser{
    }
 
 }
+
+export type product={
+  _id:string
+  name:string
+  description:string
+  price:number
+  instock_count:number
+  sizes:string[]
+  colors:string[]
+  images:{
+    url:string
+    alt:string
+  }[]
+  is_newArrival:boolean
+  is_feature:boolean
+  rating:number
+  userId:string
+}
+
+export interface productFilter{
+  color:string[]
+  size:string[]
+  minPrice:string | number | null
+  maxPrice:string | number | null
+  keyword:string
+  category:string
+}

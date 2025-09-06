@@ -74,4 +74,7 @@ const proudctSchema = new Schema<IProduct>({
 
 },{timestamps:true})
 
+proudctSchema.index({name:'text'})
+
+
 export const Product  = model<IProduct>("product",proudctSchema)

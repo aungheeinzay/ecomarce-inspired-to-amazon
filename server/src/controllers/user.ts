@@ -122,8 +122,6 @@ const sendForgetPasswordEmail=async(req:Request,res:Response)=>{
         var exitingUser;
         const user = req?.user
         const email=req.body?.email
-        console.log('email',email);
-        
         if(email){
             exitingUser = await User.findOne({email})
            

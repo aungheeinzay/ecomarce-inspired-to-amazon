@@ -1,10 +1,35 @@
-import { SquareMenu } from 'lucide-react';
+
+import { FastForward, SquareMenu } from 'lucide-react';
+import { useState } from 'react';
+import { useNavigate, useSearchParams, } from 'react-router';
 
 
-const category = ["t-shirts", "hoodies", "sweatshirts", "sports", "accessories", "caps", "bags", "shoes", "jeans", "shorts", "socks"];
 
 
 const Secondarybar = () => {
+   const [searchParams] = useSearchParams()
+   const [onTrue,setOnTrue] = useState(false)
+    
+    const navigate = useNavigate()
+  const handleSearchWithCategory=(category:string)=>{
+    const newParams = new URLSearchParams(searchParams)
+    if(onTrue)setOnTrue(false)
+    
+    newParams.set('category',category.toLocaleLowerCase())
+    navigate(`/products/filter?category=${category}`)
+    console.log("new params",newParams);
+    
+  }
+  const currentCategory = searchParams.get('category')?.toLocaleLowerCase()
+
+  
+const category = [
+    "Accessories",
+    "Clothing",
+    "Electronics",
+    "Shoes"
+  ]
+  
     return (
      
 <div className='max-w-10/12 mx-auto'>
@@ -16,9 +41,17 @@ const Secondarybar = () => {
             </div>
             
                 <ul className='flex gap-5 mt-2 col-span-7 w-full overflow-x-scroll scrollbar-hide'>
-                    {category.map((item, index) => (
-                        <li key={index} className='text-sm font-semibold  cursor-pointer'>
-                            <button className='btn-hover bg-snow text-md px-3 rounded-lg w-[120px] py-2 font-semibold border cursor-pointer select-none'>{item}</button>
+                     <li onClick={()=>{
+                        navigate('products/filter')
+                        setOnTrue(true)
+                     }}
+                         className={`text-sm font-semibold  cursor-pointer `}>
+                            <button className={`btn-hover  text-md px-3 rounded-lg w-[120px] py-2 font-semibold border cursor-pointer select-none ${onTrue ? "bg-[#e13341] text-white" : "bg-snow"}`}>all category</button>
+                        </li>
+                    {category.map((category, index) => (
+                        <li key={index} onClick={()=>handleSearchWithCategory(category)}
+                         className={`text-sm font-semibold  cursor-pointer `}>
+                            <button className={`btn-hover  text-md px-3 rounded-lg w-[120px] py-2 font-semibold border cursor-pointer select-none ${currentCategory===category.toLocaleLowerCase() ? "bg-[#e13341] text-white" : "bg-snow"}`}>{category}</button>
                         </li>
                     ))}
                 </ul>
