@@ -19,7 +19,6 @@ import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { clearUserInfo } from "@/store/slice/auth";
-import { ThreeDots } from "react-loader-spinner";
 const ForgetPassword = () => {
 
     const [on, setOn] = useState<boolean>(false)
@@ -111,7 +110,7 @@ const [logoutMutation] = useLogoutMutation()
          
          <Button disabled={isLoading}
           type="submit" className="w-full bg-madder cursor-pointer ">
-            {isLoading && <ThreeDots width={25} height={25} color="white"/>}change password</Button>
+          change password</Button>
               </form>
             </Form>
         </div>

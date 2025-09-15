@@ -21,7 +21,7 @@ import { useEffect, useState } from 'react';
 import { toast } from 'sonner';
 import { useSelector } from 'react-redux';
 import type { RootState } from '@/store';
-import { ThreeDots } from 'react-loader-spinner';
+
 
 
 const Register = () => {
@@ -153,7 +153,7 @@ const Register = () => {
 </div>
          
          <Button type="submit" className="w-full bg-madder cursor-pointer ">
-          {isLoading && <ThreeDots width={25} height={25} color='white'/>}Register</Button>
+          {isLoading && "..."}Register</Button>
               </form>
             </Form>
             <p className='text-center my-2 '>already have account? <Link to={"/login"} className='underline'>login</Link></p>

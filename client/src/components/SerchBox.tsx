@@ -8,13 +8,15 @@ const navigate = useNavigate()
 
 const handleSearch=(keyword:string)=>{
 navigate(`/products/filter?keyword=${keyword}`)
-
 }
 useEffect(()=>{
+    if(keyword!==undefined){
 const time =setTimeout(()=>{
     handleSearch(keyword as string)
 },200)
 return ()=>clearTimeout(time)
+}
+
 },[keyword])
 
     return (

@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
 import { Button } from "@/components/ui/button"
-import { ThreeDots } from 'react-loader-spinner';
 import {
   Form,
   FormControl,
@@ -71,12 +70,6 @@ const ForgetPasswordEmail = () => {
         
          
          <Button type="submit" disabled={isLoading} className="w-full bg-madder cursor-pointer ">
-            {isLoading && <ThreeDots
-  visible={true}
-  height="25"
-  width="25"
-  color="white"
-  />}
             send</Button>
               </form>
             </Form>

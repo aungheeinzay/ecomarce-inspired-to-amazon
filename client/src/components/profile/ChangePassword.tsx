@@ -16,7 +16,7 @@ import {type passwordInput,updatePasswordSchema } from "@/schema/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForgetPasswordMutation, useUpdatePasswordMutation } from "@/store/slice/userApiSlice"
 import { toast } from "sonner"
-import { ThreeDots } from "react-loader-spinner"
+
 
 
 
@@ -101,7 +101,7 @@ const ChangePassword = () => {
   
 </div>        
          <Button  type="submit" className="w-full bg-madder cursor-pointer ">
-          {isLoading && <ThreeDots width={25} height={25} color="white"/>}
+          {isLoading && "..."}
           change password</Button>
               </form>
             </Form>

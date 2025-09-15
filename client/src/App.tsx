@@ -10,6 +10,10 @@ import Profile from './pages/Profile';
 import ForgetPassword from './pages/ForgetPassword';
 import ForgetPasswordEmail from './pages/ForgetPasswordEmail';
 import ProductFilter from './pages/ProductFilter';
+import IsLogin from './pages/IsLogin';
+import IsAdmin from './pages/admin/IsAdmin';
+import ProductCreate from './pages/admin/ProductCreate';
+import Pannel from './pages/admin/Pannel';
 
 const router = createBrowserRouter([{
   path: '/',
@@ -31,15 +35,26 @@ const router = createBrowserRouter([{
     element:<ProductDetails/>
   },{
     path:"profile",
-    element:<Profile/>
+    element:<IsLogin><Profile/></IsLogin>,
+  },{
+    path:"admin",
+    element:<IsAdmin>
+      <Pannel/>
+    </IsAdmin>,
+    children:[
+      {
+        path:"createPorduct",
+        element:<ProductCreate/>
+      }
+    ]
   },
   {
     path:"forget_password/:token",
-    element:<ForgetPassword/>
+    element:<IsLogin><ForgetPassword/></IsLogin>
   },
   {
     path:'forgetPassword',
-    element:<ForgetPasswordEmail/>
+    element:<IsLogin><ForgetPasswordEmail/></IsLogin>
   },
   {
     path:'products/filter',

@@ -3,7 +3,6 @@ interface emailUpdateProps{
 }
 import { Mail } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThreeDots } from "react-loader-spinner"
 import {
   Form,
   FormControl,
@@ -72,7 +71,7 @@ const watchedEmail = form.watch("email")
 </div> 
          
             <Button disabled={email===watchedEmail || isLoading} type="submit" className=" bg-madder cursor-pointer mt-5 ">
-              {isLoading && <ThreeDots width={25} height={25} color="white"/>}update</Button>
+              {isLoading && "..."}update</Button>
          
               </form>
             </Form>

@@ -12,9 +12,8 @@ import { useCurrentUserQuery, useUploadAvatorMutation } from "@/store/slice/user
 import { Button } from "@/components/ui/button";
 import { Camera } from 'lucide-react';
 import type React from "react";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
-import { ThreeDots } from 'react-loader-spinner'
 import EmailUpdateForm from "@/components/profile/EmailUpdateForm";
 import UsernameUpdateForm from "@/components/profile/UsernameUpdateForm";
 import { FolderPen } from 'lucide-react';
@@ -60,7 +59,7 @@ const Profile = () => {
     <CardTitle>Profile</CardTitle>
     <CardAction>{
       avator ? <Button className="bg-madder cursor-pointer rounded-md" onClick={uploadHandler}>
-      {isLoading && <ThreeDots color="white" width="25" height="25"/> }upload</Button> :
+      {isLoading && "..." }upload</Button> :
       <Button onClick={()=>setOn((pre)=>!pre)} className="bg-madder cursor-pointer rounded-md">edit info</Button>
 }</CardAction>
   </CardHeader>

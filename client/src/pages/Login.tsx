@@ -22,7 +22,6 @@ import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { setUserInfo } from "@/store/slice/auth";
 import type { RootState } from "@/store";
-import { ThreeDots } from "react-loader-spinner";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -109,7 +108,7 @@ const Login = () => {
        
          
          <Button disabled={isLoading} type="submit" className="w-full bg-madder cursor-pointer ">
-          {isLoading && <ThreeDots width={25} height={25} color="white"/>}
+          {isLoading && "..."}
           login</Button>
          <Link to={"/forgetPassword"} className="underline text-gray-600">forget password?</Link>
               </form>

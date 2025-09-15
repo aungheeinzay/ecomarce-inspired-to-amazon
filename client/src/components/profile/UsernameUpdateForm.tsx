@@ -16,7 +16,7 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { useRef } from "react"
 import { useUsernameUpdateMutation } from "@/store/slice/userApiSlice"
 import { toast } from "sonner"
-import { ThreeDots } from "react-loader-spinner";
+
 
 
 const UsernameUpdateForm = ({username}:usernameInput) => {
@@ -62,7 +62,7 @@ const UsernameUpdateForm = ({username}:usernameInput) => {
 </div> 
          
             <Button disabled={username===watchedUsername} type="submit" className=" bg-madder cursor-pointer mt-5 ">
-              {isLoading && <ThreeDots width={25} height={25} color="white"/>}
+              {isLoading && "..."}
               update</Button>
          
               </form>
