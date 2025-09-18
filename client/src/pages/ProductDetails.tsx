@@ -40,7 +40,7 @@ const ProductDetails = () => {
             <div className='col-span-1'>
                 <p className='text-lg font-bold '>{aproduct?.name}</p>
                 <RatingToStar count={aproduct?.rating!}/>
-                <p className='mb-2'>{aproduct?.description}</p>
+                <div className='mb-2' dangerouslySetInnerHTML={{__html:aproduct?.description!}}/>
                      <hr />
                      {/* color */}
                      <h2 className='text-lg font-bold'>color</h2>

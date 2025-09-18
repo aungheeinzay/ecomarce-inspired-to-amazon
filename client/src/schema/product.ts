@@ -1,4 +1,4 @@
-import z, { size } from "zod"
+import z, { file, size } from "zod"
 const images_types=["image/jpg","image/jpeg","image/png","image/webp"]
 export const productFormSchema = z.object({
     name:z.string().min(3,{message:"product name too short"}),
@@ -10,8 +10,10 @@ export const productFormSchema = z.object({
     colors:z.array(z.string()).min(1,{message:"at least one colors"}),
     images:z.array(z.object({
         file:z.instanceof(File).optional(),
-        public_alt:z.string(),
-        preview:z.string()
+        alt:z.string().optional(),
+        preview:z.string().optional(),
+        url:z.string().optional(),
+
     })) .min(1,{message:"at least one image is required"}),
     is_new_arrival:z.boolean(),
     is_feature:z.boolean(),

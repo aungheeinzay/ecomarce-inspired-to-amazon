@@ -8,6 +8,8 @@ interface sizePickerProps{
 
 function SizePicker({sizes,onChange}:sizePickerProps) {
     const availableSizes=["xl","xxl","lg","md","sm","xsm"]
+    console.log(sizes);
+    
     const toggleSizes=(selectedSize:string)=>{
         if(sizes.includes(selectedSize)){
             onChange(sizes.filter((size)=>size!==selectedSize))
@@ -19,7 +21,7 @@ function SizePicker({sizes,onChange}:sizePickerProps) {
     <div className="flex items-center gap-2">
         {
             availableSizes.map((size)=>(
-        <Button key={size} variant={"outline"}
+        <Button key={size} variant={"outline"} type="button"
         onClick={()=>toggleSizes(size)}
         className={cn(sizes.includes(size) && "bg-primary text-white hover:bg-amber-600")}
         >{size.toLocaleUpperCase()}</Button>

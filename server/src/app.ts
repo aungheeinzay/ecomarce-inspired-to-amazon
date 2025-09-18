@@ -30,8 +30,7 @@ const dburl= process.env.NODE_ENV==="development"? process.env.MONGOOSE_LOCAL_UR
 mongoose.connect(dburl as string).then((_)=>{
     console.log("connected to mongoose");
     app.listen(process.env.PORT,()=>{
-        console.log("server is rinning on port 3000");
-        
+        console.log("server is rinning on port",process.env.PORT);
     })
     
 }).catch((err)=>{

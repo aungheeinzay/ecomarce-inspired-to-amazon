@@ -56,6 +56,10 @@ body{
   clip-path: polygon(70% 0%, 0 0, 0 85%);
 
 }
+.ProseMirror-focused{
+  outline: none !important;
+  box-shadow: none !important;
+}
 
 @utility form-input{
   @apply w-full py-1 ps-10 border-b-2 border-b-gray-600 focus:bg-white

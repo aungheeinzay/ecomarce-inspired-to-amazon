@@ -9,6 +9,9 @@ import ColorPicker from "./ColorPicker"
 import SizePicker from "./SizePicker"
 import { Switch } from "@/components/ui/switch"
 import { Button } from "@/components/ui/button"
+import Tiptap from "@/components/TipTap"
+import { useEffect} from "react"
+
 
 interface productFormProps{
     initialData?:any
@@ -18,9 +21,25 @@ interface productFormProps{
 
 
 function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
+
+  console.log(initialData);
+  
     const form = useForm<productFormPage>({
         resolver:zodResolver(productFormSchema),
-        defaultValues:initialData || {
+        defaultValues:initialData ? 
+        {
+      name: initialData.name,
+      description: initialData.description,
+      price: initialData.price,
+      colors:initialData.colors,
+      sizes: initialData.sizes,
+      is_feature:initialData.is_feature,
+      ratingCount:initialData.rating,
+      category:initialData.category,
+      images: initialData.images,
+      instock_count:initialData.instock_count,
+      is_new_arrival:initialData.is_newArrival,
+    }  :{
             name:"",
             description:"",
             price:0,
@@ -35,7 +54,24 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
 
         }
     })
-    
+
+    useEffect(() => {
+  if (initialData) {
+    form.reset({
+          name: initialData.name,
+      description: initialData.description,
+      price: initialData.price,
+      colors:initialData.colors,
+      sizes: initialData.sizes,
+      is_feature:initialData.is_feature,
+      ratingCount:initialData.rating,
+      category:initialData.category,
+      images: initialData.images,
+      instock_count:initialData.instock_count,
+      is_new_arrival:initialData.is_newArrival,
+    })  
+  } 
+}, [initialData])
   return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">
@@ -45,6 +81,15 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
                 <FormLabel>Product Name</FormLabel>
                 <FormControl>
                     <Input {...field}/>
+                </FormControl>
+            </FormItem>}/>
+            {/* description */}
+             <FormField control={form.control}
+            name="description"
+            render={({field})=><FormItem className="border py-4 rounded-lg">
+                <FormLabel>Product Description</FormLabel>
+                <FormControl className="">
+                    <Tiptap value={field.value} onChange={field.onChange}/>
                 </FormControl>
             </FormItem>}/>
             <div className="grid grid-cols-2 gap-1">
@@ -74,7 +119,8 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
                     <ImageUpload images={field.value} onChange={field.onChange}/>
                 </FormControl>
             </FormItem>}/>
-            {/* category */}
+            <div className="grid grid-cols-2">
+                {/* category */}
              <FormField control={form.control}
             name="category"
             render={({field})=><FormItem>
@@ -83,6 +129,16 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
                     <CategorySelect value={field.value} onChange={field.onChange}/>
                 </FormControl>
             </FormItem>}/>
+             {/* sizes */}
+             <FormField control={form.control}
+            name="sizes"
+            render={({field})=><FormItem>
+                <FormLabel>Sizes</FormLabel>
+                <FormControl>
+                    <SizePicker sizes={field.value} onChange={field.onChange}/>
+                </FormControl>
+            </FormItem>}/>
+            </div>
             {/* colors */}
              <FormField control={form.control}
             name="colors"
@@ -92,15 +148,7 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
                     <ColorPicker colors={field.value} onChange={field.onChange}/>
                 </FormControl>
             </FormItem>}/>
-            {/* sizes */}
-             <FormField control={form.control}
-            name="sizes"
-            render={({field})=><FormItem>
-                <FormLabel>Sizes</FormLabel>
-                <FormControl>
-                    <SizePicker sizes={field.value} onChange={field.onChange}/>
-                </FormControl>
-            </FormItem>}/>
+           
             {/* is new arrival */}
            <div className="grid grid-cols-2 gap-2">
               <div className=" border  rounded-lg py-2">
@@ -125,7 +173,7 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
             </FormItem>}/>
              </div>
            </div>
-           <Button disabled={isLoading}>{
+           <Button disabled={isLoading} type="submit" className="cursor-pointer">{
            isLoading ? "saving..." 
            : initialData ? "update product"
            : "create product"}</Button>

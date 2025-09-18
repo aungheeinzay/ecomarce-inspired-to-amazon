@@ -42,6 +42,8 @@ const RegisterUser = async(req:Request,res:Response)=>{
 // @access public
 const login = async(req:Request,res:Response)=>{
     const {email,password}=req.body
+    console.log({email,password});
+    
     try {
         if(!email || ! password){
         return res.status(400).json({message:"all field are required"})

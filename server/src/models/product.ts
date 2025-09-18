@@ -48,7 +48,7 @@ const proudctSchema = new Schema<IProduct>({
         required:true
     },
     images:{
-        type:[{
+        type:[{ 
             url:String,
             alt:String
         }],

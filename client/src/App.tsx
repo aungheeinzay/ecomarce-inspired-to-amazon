@@ -14,6 +14,8 @@ import IsLogin from './pages/IsLogin';
 import IsAdmin from './pages/admin/IsAdmin';
 import ProductCreate from './pages/admin/ProductCreate';
 import Pannel from './pages/admin/Pannel';
+import ProductUpdate from './pages/admin/ProductUpdate';
+
 
 const router = createBrowserRouter([{
   path: '/',
@@ -45,6 +47,10 @@ const router = createBrowserRouter([{
       {
         path:"createPorduct",
         element:<ProductCreate/>
+      },
+      {
+        path:'product/:id',
+        element:<ProductUpdate/>
       }
     ]
   },

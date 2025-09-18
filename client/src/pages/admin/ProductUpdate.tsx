@@ -7,13 +7,21 @@ import {
 } from "@/components/ui/card"
 import ProductForm from "./ProductForm"
 import type { productFormPage } from "@/schema/product"
-import { useCreateProductMutation } from "@/store/slice/prodctApiSlice"
+import { useCreateProductMutation, useGetPorductByIdQuery, useUpdateProductsMutationMutation } from "@/store/slice/prodctApiSlice"
 import { toast } from "sonner"
+import { useNavigate, useParams } from "react-router"
+import { useEffect } from "react"
 
-function ProductCreate() {
-  const [creteProduct,{isLoading}] = useCreateProductMutation()
+function ProductUpdate() {
+  const [updateMutation,{isLoading}] = useUpdateProductsMutationMutation()
+  const navigate = useNavigate()
+  const {id}=useParams()
+  const {data:singleProduct,isError,} = useGetPorductByIdQuery(id as string)
+  useEffect(()=>{
+if(isError)navigate("/admin")
+  },[singleProduct,isError])
     const onSubmit =async(data:productFormPage)=>{
-      console.log(data);
+      
       const formData = new FormData()
       formData.append("name",data.name)
       formData.append("description",data.description)
@@ -31,27 +39,29 @@ function ProductCreate() {
           formData.append("images",img.file as File)
         }
       })
-        try {
-        const data = await creteProduct(formData).unwrap()
-        toast.success(data.message)
+      const exitingImage = data.images.filter((img)=>!img.file && img.url && img.alt)
+      formData.append("exitingImage",JSON.stringify(exitingImage))
+         try {
+         const data = await updateMutation({id:id as string,formData}).unwrap()
+         toast.success(data.message)
         } catch (error) {
           console.log(error);
           toast.error("fail creating product")
-        }
+         }
     }
     
   return (
     <Card className="mb-4">
   <CardHeader>
-    <CardTitle>Add A New Product</CardTitle>
-    <CardDescription>Here!, you can add new cards with details</CardDescription>
+    <CardTitle>Update The Product</CardTitle>
+    <CardDescription>Here!, you can edit your product</CardDescription>
 
   </CardHeader>
   <CardContent>
-   <ProductForm onSubmit={onSubmit} isLoading={isLoading} />
+   <ProductForm onSubmit={onSubmit} isLoading={isLoading} initialData={singleProduct}/>
   </CardContent>
 </Card>
     
   )
 }
-export default ProductCreate
+export default ProductUpdate

@@ -1,6 +1,9 @@
 
+import type { productFormPage } from "@/schema/product";
 import { apiSlice } from "./api";
 import type { product } from "@/types/type";
+import { data } from "react-router";
+import { id } from "zod/v4/locales";
 interface getProductMeta{
     
     colors:string[]
@@ -34,9 +37,26 @@ export const productApi = apiSlice.injectEndpoints({
                 if(category)param.append('category',category)
                 return `product?${param.toString()}`
             }
-        }),
+        }
+    ),
         getProductMeta:builder.query<getProductMeta,null>({
             query:()=>`product/filterMeta`
+        }),
+        createProduct:builder.mutation<{message:string},FormData>({
+            query:(data)=>({
+                url:"/product",
+                method:'post',
+                body:data
+            }),
+            invalidatesTags:['Product']
+        }),
+        updateProductsMutation:builder.mutation<{message:string},{id:string,formData:FormData}>({
+            query:(data)=>({
+                url:`/product/${data.id}`,
+                method:'post',
+                body:data.formData
+            }),
+            invalidatesTags:['Product']
         })
     })
 })
@@ -46,5 +66,7 @@ export const {
     useGetFeatureQuery,
     useGetPorductByIdQuery,
     useGetProductsQuery,
-    useGetProductMetaQuery
+    useGetProductMetaQuery,
+    useCreateProductMutation,
+    useUpdateProductsMutationMutation
 }=productApi

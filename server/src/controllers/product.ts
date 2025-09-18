@@ -1,35 +1,49 @@
 import { Request,Response } from "express"
 import { Product } from "../models/product"
-import { readdirSync } from "fs"
+
+import { deleteImg, uploadSingleImage } from "../utils/cloudinary"
+
 
 
 //@route post | api/product
 //desc create a product
 //@admin only | privite
 const createProduct =async (req:Request,res:Response)=>{
+
 try {
       const { description,
-      price,
       instock_count,
       category,
       sizes,
       colors,
-      images,
-      is_newArrival,
-      rating,
-      is_feature,
       name
 } = req.body
+const sizess = Array.isArray(sizes) ? sizes :[sizes]
+const colorss=Array.isArray(colors) ? colors : [colors]
+const price=Number(req.body.price)
+const rating = Number(req.body.ratingCount)
+const is_newArrival= req.body.is_new_arrival==="true"
+const is_feature = req.body.is_feature==="true"
+const images = req.files as Express.Multer.File[]
 
+const uploadedImages = await Promise.all(
+    images.map(async(image)=>{
+      const uploadImg =  await uploadSingleImage(`data:${image.mimetype};base64,${image.buffer.toString("base64")}`,"fash.com/products")
+      return{
+        url:uploadImg.url,
+        alt:uploadImg.alt
+      }
+    })
+)
     await Product.create({
     name,description,price,instock_count,category,
-    sizes,colors,images,is_newArrival,rating,is_feature,
+    sizes:sizess,colors:colorss,images:uploadedImages,is_newArrival,rating,is_feature,
     userId:req.user?._id
 })
 return res.status(200).json({message:`${name} is created successfully`})
 } catch (error) {
    console.log(error);
-   return res.status(500).json({message:"server errors"})
+   return res.status(500).json(error)
 }
 }
 
@@ -38,40 +52,63 @@ return res.status(200).json({message:`${name} is created successfully`})
 //@admin only | privite
 const updateProduct =async (req:Request,res:Response)=>{
     const {id} =req.params
-try {
-      const { description,
-      price,
+    const { description,
       instock_count,
       category,
-      sizes,
-      colors,
-      images,
-      is_newArrival,
-      rating,
-      is_feature,
-      name
+      name,
+      ratingCount,
+     price,
+     is_new_arrival,
+    exitingImage,
+    is_feature
+       
 } = req.body
+try {
+const sizes = Array.isArray(req.body.sizes) ? req.body.sizes : [req.body.sizes]
+const colors=Array.isArray(req.body.colors) ? req.body.colors : [req.body.colors]
+const files = req.files as Express.Multer.File[]
+
+const parseExitingImage=exitingImage ? JSON.parse(exitingImage) : []
 
 const product = await Product.findById(id)
-if(product){
-   
+
+if(!product)return res.status(404).json({message:"not product exit"})
+const deleteimg = product.images.filter((image)=>{
+   return !parseExitingImage.some((img:{url:string,alt:string})=>image.alt===img.alt)
+})
+if(deleteimg.length>0){
+    await Promise.all(deleteimg.map(async(img)=>{
+        await deleteImg(img.alt)
+    }))
+}
+let uploadToCloud:{url:string,alt:string}[]=[];
+if(files){
+uploadToCloud = await Promise.all(files.map(async(file)=>{
+ const uploadImg = await uploadSingleImage(`data:${file.mimetype};base64,${file.buffer.toString("base64")}`,"fash.com/products")
+ return {
+    url:uploadImg.url,
+    alt:uploadImg.alt
+ }
+})) 
+}
+const finalImages= [...parseExitingImage,...uploadToCloud]
     product.name = name || product.name;
     product.category=category || product.category;
     product.description=description || product.description;
-    product.rating=rating || product.rating;
+    product.rating=ratingCount || product.rating;
     product.price=price || product.price;
     product.sizes=sizes || product.sizes;
     product.instock_count= instock_count || product.instock_count;
     product.colors = colors || product.colors;
-    product.images = images || product.images;
-    product.is_newArrival=is_newArrival || product.is_newArrival;
+    product.images=finalImages
+    product.is_newArrival=is_new_arrival || product.is_newArrival;
     product.is_feature = is_feature || product.is_feature
     await product.save()
     return res.status(200).json({message:"update the product"})
-}
+
 } catch (error) {
    console.log(error);
-   return res.status(500).json({message:"product does not exit"})
+   return res.status(500).json({message:"internal server error"})
 }
 }
 //@ get | api/porduct
@@ -111,10 +148,12 @@ if(product){
 //@desc get new products
 //@public
 
-const getnewArrival =async (req:Request,res:Response)=>{
+const getnewArrival =async(req:Request,res:Response)=>{
+    console.log("touch new arrival");
+    
     try {
         const products = await Product.find({is_newArrival:true})
-        if(products)return res.status(200).json(products)
+        if(products.length>0)return res.status(200).json(products)
         return res.status(404).json({message:'no new arrivals'})
     } catch (error) {
         console.log(error);

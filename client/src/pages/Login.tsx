@@ -37,6 +37,8 @@ const Login = () => {
   const [loginMutation,{isLoading}] = useLoginMutation()
   const userInfo = useSelector((state:RootState)=>state.auth.userInfo)
     const submit:SubmitHandler<loginInput> =async(data : loginInput)=>{
+      console.log(data);
+      
         try {
          const res =  await loginMutation(data).unwrap()
          dispatch(setUserInfo(res))
