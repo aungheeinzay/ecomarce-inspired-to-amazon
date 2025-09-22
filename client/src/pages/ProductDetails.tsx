@@ -3,9 +3,13 @@ import { useParams } from 'react-router';
 import { Check, ShoppingCart  } from 'lucide-react';
 import RatingToStar from '../utils/RatingToStar';
 import { useGetPorductByIdQuery } from '@/store/slice/prodctApiSlice';
+import { addToCart, type CartItem } from '@/store/slice/card';
+import { useDispatch } from 'react-redux';
+import { toast } from 'sonner';
 
 const ProductDetails = () => {
     const {id} = useParams()
+    const dispatch = useDispatch()
     const {data:aproduct,isLoading} = useGetPorductByIdQuery(id as string)
     
     const[selectedImage,setSelectedImgae] = useState<string | undefined>()
@@ -17,7 +21,10 @@ const ProductDetails = () => {
             setSelectedImgae(aproduct!.images[0].url)
         }
     },[aproduct])
-
+    const addTocartHandler=(data:CartItem)=>{
+        toast.success('add to card')
+        dispatch(addToCart(data))
+    }
     if(isLoading)return <p className='text-center'>loading...</p>
     return (
         <div className='w-10/12 mx-auto'>
@@ -87,7 +94,16 @@ const ProductDetails = () => {
                             
                         </div>
                         <button className='cursor-pointer text-white col-span-2 w-full bg-madder h-fit py-2 rounded-md flex gap-2 justify-center
-                        items-center'><ShoppingCart className=''/>add to card</button>
+                        items-center' onClick={()=>addTocartHandler({
+                            productId:aproduct?._id!,
+                            name:aproduct?.name!,
+                            size:selectedSize!,
+                            color:selectedColor!,
+                            quantity,
+                            image:selectedImage!,
+                            price:aproduct?.price!
+
+                        })}><ShoppingCart className=''/>add to card</button>
                      </div>
 
             </div>

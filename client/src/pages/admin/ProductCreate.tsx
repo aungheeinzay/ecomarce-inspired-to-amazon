@@ -9,9 +9,11 @@ import ProductForm from "./ProductForm"
 import type { productFormPage } from "@/schema/product"
 import { useCreateProductMutation } from "@/store/slice/prodctApiSlice"
 import { toast } from "sonner"
+import { useState } from "react"
 
 function ProductCreate() {
   const [creteProduct,{isLoading}] = useCreateProductMutation()
+  const [success,setsuccess] = useState(false)
     const onSubmit =async(data:productFormPage)=>{
       console.log(data);
       const formData = new FormData()
@@ -32,8 +34,9 @@ function ProductCreate() {
         }
       })
         try {
-        const data = await creteProduct(formData).unwrap()
+        const data = await creteProduct(formData).unwrap()        
         toast.success(data.message)
+        setsuccess(true)
         } catch (error) {
           console.log(error);
           toast.error("fail creating product")
@@ -48,7 +51,7 @@ function ProductCreate() {
 
   </CardHeader>
   <CardContent>
-   <ProductForm onSubmit={onSubmit} isLoading={isLoading} />
+   <ProductForm onSubmit={onSubmit} isLoading={isLoading} success={success}/>
   </CardContent>
 </Card>
     

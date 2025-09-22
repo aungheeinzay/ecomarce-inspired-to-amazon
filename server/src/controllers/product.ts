@@ -220,7 +220,26 @@ const getProudctsMeta=async(req:Request,res:Response)=>{
     }
     )
 }
+//@route Delete | api/productDelete/:id
+//@desc delete the product
+//@acess admin only
+const deleteProduct =async (req:Request,res:Response)=>{
+const {productId} = req.params;
 
+    try {
+    const aproduct =await Product.findById(productId)
+if(!aproduct)return res.status(404).json({message:'product not exit'})
+   
+    Promise.all(aproduct.images.map(async(obj)=>{
+        await deleteImg(obj.alt)
+    }))
+    await aproduct.deleteOne()
+    return res.status(200).json({message:"delete the product"})
+    } catch (error) {
+        console.log(error);
+        return res.status(500).json({message:"server error"})
+    }
+}
 
 export {
     createProduct,
@@ -229,5 +248,6 @@ export {
     getnewArrival,
     getFeature,
     getProductById,
-    getProudctsMeta
+    getProudctsMeta,
+    deleteProduct
 }

@@ -14,7 +14,8 @@ function IsAdmin({children}:{children:React.ReactNode}) {
         if(!userInfo || currentUser?.userInfo.role!== 'admin' || isError){
             navigate("/")
         }
-    },[userInfo,currentUser,navigate])
+    },[userInfo,currentUser,navigate,isError])
+    
   return (
     <div>{children}</div>
   )

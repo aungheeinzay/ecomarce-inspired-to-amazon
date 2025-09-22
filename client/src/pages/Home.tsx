@@ -5,11 +5,8 @@ import { loginSchema } from '@/schema/auth';
 
 const Home = () => {
     const {data:newArrival=[]} = useGetNewArrivalsQuery({})
-    console.log(newArrival);
     
     const {data:feature=[]}=useGetFeatureQuery({})
-    console.log(feature);
-    
     return (
         <main className='w-11/12 mx-auto'>
             <section>

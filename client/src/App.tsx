@@ -15,6 +15,10 @@ import IsAdmin from './pages/admin/IsAdmin';
 import ProductCreate from './pages/admin/ProductCreate';
 import Pannel from './pages/admin/Pannel';
 import ProductUpdate from './pages/admin/ProductUpdate';
+import ManageProduct from './pages/admin/ManageProduct';
+import path from 'path';
+import AdminChart from './components/adminChart/AdminChart';
+import OrderTable from './components/admintable/OrderTable';
 
 
 const router = createBrowserRouter([{
@@ -51,6 +55,18 @@ const router = createBrowserRouter([{
       {
         path:'product/:id',
         element:<ProductUpdate/>
+      },
+      {
+        path:"manageProduct",
+        element:<ManageProduct/>
+      },
+      {
+        path:"chartBoard",
+        element:<AdminChart/>
+      },
+      {
+        path:"order",
+        element:<OrderTable/>
       }
     ]
   },

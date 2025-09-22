@@ -7,13 +7,14 @@ import {
 } from "@/components/ui/card"
 import ProductForm from "./ProductForm"
 import type { productFormPage } from "@/schema/product"
-import { useCreateProductMutation, useGetPorductByIdQuery, useUpdateProductsMutationMutation } from "@/store/slice/prodctApiSlice"
+import { useGetPorductByIdQuery, useUpdateProductsMutationMutation } from "@/store/slice/prodctApiSlice"
 import { toast } from "sonner"
 import { useNavigate, useParams } from "react-router"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 function ProductUpdate() {
   const [updateMutation,{isLoading}] = useUpdateProductsMutationMutation()
+  const [success,setsuccess] = useState(false)
   const navigate = useNavigate()
   const {id}=useParams()
   const {data:singleProduct,isError,} = useGetPorductByIdQuery(id as string)
@@ -44,6 +45,7 @@ if(isError)navigate("/admin")
          try {
          const data = await updateMutation({id:id as string,formData}).unwrap()
          toast.success(data.message)
+         setsuccess(true)
         } catch (error) {
           console.log(error);
           toast.error("fail creating product")
@@ -58,7 +60,7 @@ if(isError)navigate("/admin")
 
   </CardHeader>
   <CardContent>
-   <ProductForm onSubmit={onSubmit} isLoading={isLoading} initialData={singleProduct}/>
+   <ProductForm onSubmit={onSubmit} isLoading={isLoading} initialData={singleProduct} success={false}/>
   </CardContent>
 </Card>
     

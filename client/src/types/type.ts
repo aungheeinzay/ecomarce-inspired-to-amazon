@@ -15,6 +15,7 @@ export interface IUser{
 export type product={
   _id:string
   name:string
+  category:string
   description:string
   price:number
   instock_count:number
@@ -27,7 +28,9 @@ export type product={
   is_newArrival:boolean
   is_feature:boolean
   rating:number
-  userId:string
+  userId:string,
+  createdAt:Date
+  
 }
 
 export interface productFilter{

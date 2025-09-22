@@ -1,4 +1,4 @@
-import { createProduct, getFeature, getnewArrival, getProductByFilter, getProductById, getProudctsMeta, updateProduct } from "../controllers/product";
+import { createProduct, deleteProduct, getFeature, getnewArrival, getProductByFilter, getProductById, getProudctsMeta, updateProduct } from "../controllers/product";
 import { Router } from "express";
 import { protact } from "../middleware/protact";
 import { isAdmin } from "../middleware/roleMiddleware";
@@ -20,6 +20,8 @@ router.get("/feature",getFeature)
 router.get("/one/:productId",getProductById)
 //admin can only request these route
 router.post("/:id",protact,isAdmin,upload.array("images"),updateProduct)
+//admin can only delete
+router.delete("/delete/:productId",protact,isAdmin,deleteProduct)
 //get product metaData
 router.get('/filterMeta',getProudctsMeta)
 export default router;

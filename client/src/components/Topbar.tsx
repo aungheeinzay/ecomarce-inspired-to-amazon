@@ -14,8 +14,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { clearUserInfo } from '@/store/slice/auth';
-import { useLogoutMutation } from '@/store/slice/userApiSlice';
+import { useCurrentUserQuery, useLogoutMutation } from '@/store/slice/userApiSlice';
 import { toast } from 'sonner';
+import { useEffect } from "react";
+
 
 
 const Topbar = () => {
@@ -23,6 +25,7 @@ const Topbar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [logoutMutation,{isLoading}] = useLogoutMutation()
+    const {data:currentUser,isError} = useCurrentUserQuery()
     const logoutHandler=async()=>{
         dispatch(clearUserInfo())
         try {
@@ -36,7 +39,6 @@ const Topbar = () => {
             console.log(error);
             toast.error(error.data.message)
         }
-    
         
     }
     return (
@@ -55,7 +57,10 @@ const Topbar = () => {
     <DropdownMenuLabel>My Account</DropdownMenuLabel>
     <DropdownMenuSeparator />
     <Link to={"/profile"}><DropdownMenuItem>profile</DropdownMenuItem></Link>
-    <Link to={"product/id"}><DropdownMenuItem>product</DropdownMenuItem></Link>
+    {
+        currentUser?.userInfo?.role==="admin" && 
+        <Link to={"/admin/manageProduct"}><DropdownMenuItem>dashboard</DropdownMenuItem></Link>
+    }
     <DropdownMenuItem>setting</DropdownMenuItem>
     <DropdownMenuItem onClick={logoutHandler} disabled={isLoading}
     ><LogOut className='text-red-600 cursor-pointer' />logout</DropdownMenuItem>

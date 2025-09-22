@@ -16,13 +16,14 @@ import { useEffect} from "react"
 interface productFormProps{
     initialData?:any
     onSubmit:(data:productFormPage)=>void
-    isLoading:boolean
+    isLoading:boolean,
+    success:boolean
 }
 
 
-function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
+function ProductForm({initialData,onSubmit,isLoading,success}:productFormProps) {
 
-  console.log(initialData);
+
   
     const form = useForm<productFormPage>({
         resolver:zodResolver(productFormSchema),
@@ -71,7 +72,8 @@ function ProductForm({initialData,onSubmit,isLoading}:productFormProps) {
       is_new_arrival:initialData.is_newArrival,
     })  
   } 
-}, [initialData])
+  if(success)form.reset()
+}, [initialData,success])
   return (
     <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="grid gap-4">

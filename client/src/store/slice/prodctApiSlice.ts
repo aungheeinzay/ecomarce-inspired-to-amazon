@@ -1,9 +1,8 @@
 
-import type { productFormPage } from "@/schema/product";
+
 import { apiSlice } from "./api";
 import type { product } from "@/types/type";
-import { data } from "react-router";
-import { id } from "zod/v4/locales";
+
 interface getProductMeta{
     
     colors:string[]
@@ -17,10 +16,12 @@ interface getProductMeta{
 export const productApi = apiSlice.injectEndpoints({
     endpoints:(builder)=>({
         getNewArrivals:builder.query({
-            query:()=>"product/newArrival"
+            query:()=>"product/newArrival",
+            providesTags:['Product']
         }),
         getFeature:builder.query({
-            query:()=>'feature'
+            query:()=>'feature',
+            providesTags:["Product"]
         }),
         getPorductById:builder.query<product,string>({
             query:(id)=>`product/one/${encodeURIComponent(id)}`
@@ -36,11 +37,13 @@ export const productApi = apiSlice.injectEndpoints({
                 if(keyword)param.append('keyword',keyword)
                 if(category)param.append('category',category)
                 return `product?${param.toString()}`
-            }
+            },
+            providesTags:['Product']
         }
     ),
         getProductMeta:builder.query<getProductMeta,null>({
-            query:()=>`product/filterMeta`
+            query:()=>`product/filterMeta`,
+            providesTags:['Product']
         }),
         createProduct:builder.mutation<{message:string},FormData>({
             query:(data)=>({
@@ -57,6 +60,13 @@ export const productApi = apiSlice.injectEndpoints({
                 body:data.formData
             }),
             invalidatesTags:['Product']
+        }),
+        deleteProductMutation:builder.mutation<{message:string}, {id:string}>({
+            query:({id})=>({
+                url:`product/delete/${id}`,
+                method:"delete",
+            }),
+            invalidatesTags:['Product']
         })
     })
 })
@@ -68,5 +78,6 @@ export const {
     useGetProductsQuery,
     useGetProductMetaQuery,
     useCreateProductMutation,
-    useUpdateProductsMutationMutation
+    useUpdateProductsMutationMutation,
+    useDeleteProductMutationMutation
 }=productApi

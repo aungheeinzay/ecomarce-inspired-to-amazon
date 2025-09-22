@@ -1,16 +1,25 @@
+import { useSelector } from "react-redux";
 import {Products} from "../../utils/fakeData"
 import ToOrderProduct from "./ToOrderProduct";
+import type { RootState } from "@/store";
+
+
+
 const ToOrderProductList = () => {
+    const products = useSelector((state:RootState)=>state.cart.items)
     return (
         <div>
-            {Products.map((p)=>(
+            {products.length===0 ? <p>no cart in order</p> : 
+            products.map((p)=>(
                 <ToOrderProduct 
-                key={p.id} 
+                key={p.productId} 
                 name={p.name} 
-                size={p.size[0]} 
-                color={p.color[0]}
-                image={p.images[0].url}
-                price={p.price}/>
+                size={p.size} 
+                color={p.color}
+                image={p.image}
+                price={p.price}
+                quantity={p.quantity}
+                keyId={p.key!}/>
             ))}
         </div>
     );
