@@ -2,6 +2,7 @@
 
 import { apiSlice } from "./api";
 import type { product } from "@/types/type";
+import type { CartItem } from "./card";
 
 interface getProductMeta{
     
@@ -12,6 +13,14 @@ interface getProductMeta{
     sizes:[string | number]
 
 }
+export interface orderItemData{
+    items:CartItem[]
+    bill:number
+    customer?:string
+    status?:string
+    totalQuantity?:number
+}
+
 
 export const productApi = apiSlice.injectEndpoints({
     endpoints:(builder)=>({
@@ -67,6 +76,19 @@ export const productApi = apiSlice.injectEndpoints({
                 method:"delete",
             }),
             invalidatesTags:['Product']
+        }),
+        orderProductMutation:builder.mutation<{url:string},orderItemData>({
+            query:(data)=>({
+                url:"/create_order/create-checkout-session",
+                method:"post",
+                body:data
+            }),
+        }),
+        conformSession:builder.query<orderItemData,string>({
+            query:(sessionId)=>({
+                url:`/create_order/conform/${sessionId}`,
+                method:"get"
+            })
         })
     })
 })
@@ -79,5 +101,7 @@ export const {
     useGetProductMetaQuery,
     useCreateProductMutation,
     useUpdateProductsMutationMutation,
-    useDeleteProductMutationMutation
+    useDeleteProductMutationMutation,
+    useOrderProductMutationMutation,
+    useConformSessionQuery
 }=productApi

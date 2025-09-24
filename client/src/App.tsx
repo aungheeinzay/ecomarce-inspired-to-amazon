@@ -16,9 +16,10 @@ import ProductCreate from './pages/admin/ProductCreate';
 import Pannel from './pages/admin/Pannel';
 import ProductUpdate from './pages/admin/ProductUpdate';
 import ManageProduct from './pages/admin/ManageProduct';
-import path from 'path';
 import AdminChart from './components/adminChart/AdminChart';
 import OrderTable from './components/admintable/OrderTable';
+import ConformOrder from './pages/order/ConformOrder';
+import Canceled from './pages/order/Canceled';
 
 
 const router = createBrowserRouter([{
@@ -81,6 +82,14 @@ const router = createBrowserRouter([{
   {
     path:'products/filter',
     element:<ProductFilter/>
+  },
+  {
+    path:'order_success',
+    element:<ConformOrder/>
+  },
+  {
+    path:"order_cancel",
+    element:<Canceled/>
   }
 ]
 }])

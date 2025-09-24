@@ -14,7 +14,7 @@ interface toOrderProductProps{
 const ToOrderProduct = ({name,size,color,image,price,quantity,keyId}:toOrderProductProps) => {
   const dispatch = useDispatch()
     return (
-        <div className='flex gap-4 w-8/12 p-2 rounded-md bg-gray-200 shadow-lg mb-4 hover:shadow-xl'>
+        <div className='flex gap-4 w-full p-2 rounded-md bg-gray-200 shadow-lg mb-4 hover:shadow-xl'>
             <div className="group bg-gray-400 shadow-md rounded-md relative hover:shadow-lg
             w-2/5 transition-shadow duration-300 ease-in-out overflow-hidden p-5">
   <div className="absolute w-[100px] h-[50px] bg-gray-600 z-40 favourite">
@@ -55,7 +55,7 @@ onClick={()=>dispatch(removeOrder(keyId))}/>
     className='bg-gray-600 hover:bg-gray-400 hover:text-gray-950 w-[40px] h-[40px] rounded-md text-lg cursor-pointer text-snow duration-100 transition-all'>-</button>
    </div>
    <button 
-    className='bg-gray-600 hover:bg-gray-400 hover:text-gray-950 text-white cursor-pointer text-md font-bold py-1 px-4 rounded-md w-2/4 duration-100 transition-all'>add to card</button>
+    className='bg-gray-600 hover:bg-gray-400 hover:text-gray-950 text-white cursor-pointer text-md font-bold py-1 px-4 rounded-md w-2/4 duration-100 transition-all'>checkout</button>
 </div>
 </div>
         </div>

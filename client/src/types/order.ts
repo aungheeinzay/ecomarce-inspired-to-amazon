@@ -6,6 +6,7 @@ export type orderItem={
     image?:string
 
 }
+
 export type order = {
     id:string
     userId:string

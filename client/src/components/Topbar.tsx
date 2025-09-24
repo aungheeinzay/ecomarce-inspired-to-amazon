@@ -22,6 +22,7 @@ import { useEffect } from "react";
 
 const Topbar = () => {
     const userInfo = useSelector((state:RootState)=>state.auth.userInfo)
+    const orderedCart = useSelector((state:RootState)=>state.cart.items)
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [logoutMutation,{isLoading}] = useLogoutMutation()
@@ -48,7 +49,8 @@ const Topbar = () => {
             </h1></Link>
             <SearchBox />
             <div className='flex-center gap-20'>
-                <Link to={"orderCards"}><ShoppingCart size={30} className='cursor-pointer'/></Link>
+                <Link to={"orderCards"} className="relative"><ShoppingCart size={30} className='cursor-pointer'/>
+                <span className="absolute -top-4 right-0">{orderedCart.length}</span></Link>
                 {
                     userInfo ? 
                     <DropdownMenu >

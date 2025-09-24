@@ -12,7 +12,7 @@ export interface CartItem{
     key?:string //unique [porductId,size,color]
 }
 
-interface CartState{
+export interface CartState{
     items:CartItem[]
 }
 
@@ -57,9 +57,12 @@ const cartSlice = createSlice({
         },
         removeOrder(state,action){
             state.items = state.items.filter(item=>item.key !== action.payload)
+        },
+        clearCartOrder(state){
+            state.items=[]
         }
     }
 })
 
-export const {addToCart,incrementOrder,decrementOrder,removeOrder} = cartSlice.actions
+export const {addToCart,incrementOrder,decrementOrder,removeOrder,clearCartOrder} = cartSlice.actions
 export default cartSlice.reducer
