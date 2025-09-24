@@ -20,7 +20,7 @@ app.use(cors({
     credentials:true
 }))
 //stripe
-const endpointSecret = 'whsec_bd7c0182454a2320310fa4ae25d44864433ad62b243cf33d8132ec60fa468904';
+const endpointSecret =process.env.STRIPE_ENDPOINT_SECRET;
 app.post("/stripe/webhook",express.raw({type:"application/json"}),async(req:Request,res:Response)=>{
     let event = req.body
     if(endpointSecret){
