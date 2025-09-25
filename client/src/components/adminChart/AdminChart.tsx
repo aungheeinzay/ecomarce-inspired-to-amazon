@@ -1,6 +1,5 @@
 import ProductStatusCard from '@/pages/admin/ProductStatusCard'
 import { useGetProductsQuery } from '@/store/slice/prodctApiSlice'
-import React from 'react'
 import Chart from './Chart'
 
 function AdminChart() {

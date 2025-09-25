@@ -1,11 +1,9 @@
 import { useSelector } from "react-redux";
-import {Products} from "../../utils/fakeData"
 import ToOrderProduct from "./ToOrderProduct";
 import type { RootState } from "@/store";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { useOrderProductMutationMutation, type orderItemData } from "@/store/slice/prodctApiSlice";
-import { data } from "react-router";
 import { toast } from "sonner";
 
 

@@ -1,5 +1,5 @@
-import z, { file, size } from "zod"
-const images_types=["image/jpg","image/jpeg","image/png","image/webp"]
+import z from "zod"
+
 export const productFormSchema = z.object({
     name:z.string().min(3,{message:"product name too short"}),
     description:z.string().min(10,{message:""}),

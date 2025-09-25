@@ -2,8 +2,6 @@
 import type{ emailInput,usernameInput,passwordInput } from "@/schema/auth";
 import { apiSlice } from "./api";
 import type{ IUser } from "@/types/type";
-import { data } from "react-router";
-
 
 
 interface forgetForEmail{
@@ -18,9 +16,7 @@ interface registerInput extends loginInput{
     username:string
     conformPassword:string
 }
-interface userInfo{
-    image:string
-}
+
 
 interface changePasswordInput{
     newPassword:string

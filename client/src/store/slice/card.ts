@@ -1,4 +1,4 @@
-import { Item } from "@radix-ui/react-dropdown-menu"
+
 import { createSlice } from "@reduxjs/toolkit"
 
 export interface CartItem{

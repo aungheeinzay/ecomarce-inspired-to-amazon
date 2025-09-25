@@ -1,5 +1,5 @@
-import { data } from "react-router";
-import {email, minLength, string, z} from "zod";
+
+import {z} from "zod";
 const specialArray = ["@","!","$","%","^","&","*"]
 let password:string
 const registerSchema = z.object({

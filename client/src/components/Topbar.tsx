@@ -16,7 +16,6 @@ import {
 import { clearUserInfo } from '@/store/slice/auth';
 import { useCurrentUserQuery, useLogoutMutation } from '@/store/slice/userApiSlice';
 import { toast } from 'sonner';
-import { useEffect } from "react";
 
 
 

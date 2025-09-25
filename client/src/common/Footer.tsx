@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Facebook } from 'lucide-react';
 import { Instagram } from 'lucide-react';
 import { Twitter } from 'lucide-react';

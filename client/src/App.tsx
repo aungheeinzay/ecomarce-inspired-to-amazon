@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { createBrowserRouter, RouterProvider } from 'react-router';
 import Main from './layouts/Main';
 import Home from './pages/Home';

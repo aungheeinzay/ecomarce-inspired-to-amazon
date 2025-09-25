@@ -2,8 +2,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { clearCartOrder } from '@/store/slice/card';
 import { useConformSessionQuery } from '@/store/slice/prodctApiSlice';
-import { Check, CheckCircle } from 'lucide-react';
-import React, { useEffect } from 'react'
+import {CheckCircle } from 'lucide-react';
+import { useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate, useSearchParams } from 'react-router'
 

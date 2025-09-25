@@ -15,7 +15,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { useForm, type SubmitHandler } from 'react-hook-form';
 import { Mail } from 'lucide-react';
-import { useForgetFormLoginMutation, useForgetPasswordMutation } from '@/store/slice/userApiSlice';
+import { useForgetFormLoginMutation} from '@/store/slice/userApiSlice';
 import { updateEmailSchema,type emailInput } from '@/schema/auth';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { toast } from 'sonner';

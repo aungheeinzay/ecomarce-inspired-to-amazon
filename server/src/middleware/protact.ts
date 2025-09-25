@@ -2,7 +2,6 @@ import { NextFunction, Request, Response } from "express";
 import { User } from "../models/user";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { IUser } from "../models/user";
-import { isGeneratorFunction } from "util/types";
 
 declare global{
     namespace Express {

@@ -68,3 +68,26 @@ export const confirmSessionId=async(req:Request,res:Response)=>{
     return res.status(200).json(order)
 }
 
+
+export const getOrderByUser = async(req:Request,res:Response)=>{
+    const userId = req.user?.id
+    const order = await Order.findOne({userId})
+    res.status(200).json(order)
+}
+
+export const getAllOrder = async(req:Request,res:Response)=>{
+    const order=await Order.find().sort({createdAt:-1})
+    res.status(200).json(order)
+}
+
+export const changeOrderStatus = async(req:Request,res:Response)=>{
+    const {orderId} = req.params
+    const {status} = req.body
+    const updatedOrder = await Order.findByIdAndUpdate(orderId,{
+        status
+    },{new:true})
+    if(!updatedOrder){
+        throw new Error ("Order not found")
+    }
+    res.status(200).json(updatedOrder)
+}

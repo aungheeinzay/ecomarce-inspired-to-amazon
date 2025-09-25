@@ -1,5 +1,4 @@
-import { ChartLine, icons, Package, PackagePlus, Truck } from "lucide-react"
-import path from "path"
+import { ChartLine, Package, PackagePlus, Truck } from "lucide-react"
 import { NavLink } from "react-router"
 
 

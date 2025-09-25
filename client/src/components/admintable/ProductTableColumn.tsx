@@ -1,6 +1,6 @@
 import type { product } from "@/types/type"
 
-import{ ColumnFaceting, type ColumnDef } from "@tanstack/react-table"
+import{ type ColumnDef } from "@tanstack/react-table"
 import { Avatar, AvatarImage,AvatarFallback } from "../ui/avatar";
 import { Badge } from "../ui/badge";
 import { Button } from "@/components/ui/button"

@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 
-interface AuthState{
-    userInfo:{
-        _id:string;
-    } | null
-}
 
 const initialState={
     userInfo:localStorage.getItem("userInfo") ?
