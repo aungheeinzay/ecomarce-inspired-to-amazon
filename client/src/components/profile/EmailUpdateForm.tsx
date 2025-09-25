@@ -16,7 +16,7 @@ import { useForm, type SubmitHandler } from "react-hook-form"
 import { updateEmailSchema,type emailInput  } from "@/schema/auth"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useRef } from "react"
-import { useCurrentUserQuery, useEmailUpdateMutation } from "@/store/slice/userApiSlice"
+import { useEmailUpdateMutation } from "@/store/slice/userApiSlice"
 import { toast } from "sonner"
 
 

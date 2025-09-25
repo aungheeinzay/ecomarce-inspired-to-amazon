@@ -25,7 +25,7 @@ const Topbar = () => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [logoutMutation,{isLoading}] = useLogoutMutation()
-    const {data:currentUser,isError} = useCurrentUserQuery()
+    const {data:currentUser} = useCurrentUserQuery()
     const logoutHandler=async()=>{
         dispatch(clearUserInfo())
         try {
